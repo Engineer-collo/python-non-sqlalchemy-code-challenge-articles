@@ -100,12 +100,8 @@ class Article:
     all_articles = []  # Store all articles
 
     def __init__(self, author, magazine, title):
-        if not isinstance(author, Author):
-            raise TypeError("author must be an instance of Author")
-        if not isinstance(magazine, Magazine):
-            raise TypeError("magazine must be an instance of Magazine")
-        self._author = author
-        self._magazine = magazine
+        self.author = author
+        self.magazine = magazine
         self.title = title
         Article.all_articles.append(self)
 
@@ -119,11 +115,27 @@ class Article:
             raise Exception("Can't reassign title")
         elif isinstance(title, str) and 5 <= len(title) <= 50:
             self._title = title
-            
+        else:
+            raise ValueError("Title must be a string with 5 to 50 characters")
+
     @property
     def author(self):
         return self._author
 
+    @author.setter
+    def author(self, author):
+        if not isinstance(author, Author):
+            raise TypeError("author must be an instance of Author")
+        self._author = author
+
     @property
     def magazine(self):
         return self._magazine
+
+    @magazine.setter
+    def magazine(self, magazine):
+        if not isinstance(magazine, Magazine):
+            raise TypeError("magazine must be an instance of Magazine")
+        self._magazine = magazine
+
+
